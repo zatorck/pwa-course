@@ -1,6 +1,6 @@
 {
-  "name": "Course Project Starting",
-  "short_name": "Sweaty",
+  "name": "Instagram as Progressive Web App",
+  "short_name": "PWAGram",
   "icons": [
     {
       "src": "/src/images/icons/app-icon-48x48.png",
@@ -41,11 +41,10 @@
   "start_url": "/index.html",
   "scope": ".",
   "display": "standalone",
-  "background_color": "#FFF",
-  "theme_color": "#3F51B5",
-  "description": "Jakiś tam opisik aplikacji",
-  "dir": "ltr",
-  "lang": "en-US",
   "orientation": "portrait-primary",
-  "_comment-related_applications": "super rzecz może być użyta do namierzania aplikacji"
+  "background_color": "#fff",
+  "theme_color": "#3f51b5",
+  "description": "A simple Instagram Clone, implementing a lot of PWA love.",
+  "dir": "ltr",
+  "lang": "en-US"
 }
