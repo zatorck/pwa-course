@@ -1,22 +1,25 @@
-var shareImageButton = document.querySelector('#share-image-button');
-var createPostArea = document.querySelector('#create-post');
-var closeCreatePostModalButton = document.querySelector('#close-create-post-modal-btn');
-var sharedMomentsArea = document.querySelector('#shared-moments');
+var shareImageButton = document.querySelector('#share-image-button')
+var createPostArea = document.querySelector('#create-post')
+var closeCreatePostModalButton = document.querySelector('#close-create-post-modal-btn')
+var sharedMomentsArea = document.querySelector('#shared-moments')
+var form = document.querySelector('form')
+var titleInput = document.querySelector('#title')
+var locationInput = document.querySelector('#location')
 
-function openCreatePostModal() {
-  createPostArea.style.display = 'block';
+function openCreatePostModal () {
+  createPostArea.style.display = 'block'
   if (deferredPrompt) {
-    deferredPrompt.prompt();
+    deferredPrompt.prompt()
 
-    deferredPrompt.userChoice.then(function(choiceResult) {
-      console.log(choiceResult.outcome);
+    deferredPrompt.userChoice.then(function (choiceResult) {
+      console.log(choiceResult.outcome)
 
       if (choiceResult.outcome === 'dismissed') {
-        console.log('User cancelled installation');
+        console.log('User cancelled installation')
       } else {
-        console.log('User added to home screen');
+        console.log('User added to home screen')
       }
-    });
+    })
 
     deferredPrompt = null
   }
@@ -60,7 +63,6 @@ function createCard (data) {
   // cardSaveButton.addEventListener('click', function () {
   //   // below won't work as 'caches' in navigator
   //   if ('caches' in window) {
-  //     console.log('eeee')
   //     caches.open('user-requested')
   //       .then(function (cache) {
   //         cache.addAll([
@@ -126,10 +128,68 @@ fetch(url)
 
 if ('indexedDB' in window) {
   readAllData('posts')
-   .then(function (data){
-     if(!getFromNetwork){
-       console.log('[Feed.js]   from cache', data)
-       updateUI(data);
-     }
-   })
+    .then(function (data) {
+      if (!getFromNetwork) {
+        console.log('[Feed.js]   from cache', data)
+        updateUI(data)
+      }
+    })
+}
+
+// below we are making form submitting with background sync
+form.addEventListener('submit', function (event) {
+  event.preventDefault()
+
+  if (titleInput.value.trim() === '' || locationInput.value.trim() === '') {
+    alert('Please enter valid data')
+    return
+  }
+
+  closeCreatePostModal()
+
+  if ('serviceWorker' in navigator && 'SyncManager' in window) {
+    navigator.serviceWorker.ready
+      .then(function (sw) {
+        var post = {
+          id: new Date().toISOString(),
+          title: titleInput.value,
+          location: locationInput.value,
+          image: 'https://www.udemy.com/staticx/udemy/images/v7/logo-udemy-inverted.svg'
+        }
+        writeData('sync-posts', post)
+          .then(function () {
+            return sw.sync.register('sync-new-post')
+          })
+          .then(function () {
+            var sanckbarContainer = document.querySelector('#confirmation-toast')
+            var data = { message: 'Your post was saved for syncing!' }
+            sanckbarContainer.MaterialSnackbar.showSnackbar(data)
+          })
+          .catch(function (err) {
+            console.log(err)
+          })
+      })
+  } else {
+    sendData()
+  }
+})
+
+function sendData () {
+  fetch('https://us-central1-pwaudemy-893b7.cloudfunctions.net/storePostData', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      id: new Date().toISOString(),
+      title: titleInput.value,
+      location: locationInput.value,
+      image: 'https://www.udemy.com/staticx/udemy/images/v7/logo-udemy-inverted.svg'
+    })
+  })
+    .then(function (res) {
+      console.log('[feed.js] Send data: ', res)
+      updateUI()
+    })
 }

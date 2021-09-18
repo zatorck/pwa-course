@@ -93,6 +93,7 @@
            class="main-image">
       <div class="page-content">
         <h5 class="text-center mdl-color-text--primary">Share your Moments</h5>
+        <a href="#" onclick="test()">https://httpbin.org/post</a>
         <div id="shared-moments"></div>
       </div>
       <div class="floating-button">
@@ -113,5 +114,18 @@
 <script src="/src/js/utility.js"></script>
 <script src="/src/js/app.js"></script>
 <script src="/src/js/feed.js"></script>
+<script>
+  function test () {
+    fetch('https://httpbin.org/post', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ heelo: 'hello' + Math.random() }),
+    })
+    fetch('https://httpbin.org/uuid')
+  }
+</script>
 </body>
 </html>

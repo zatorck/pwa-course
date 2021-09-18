@@ -226,3 +226,103 @@ self.addEventListener('fetch', function (event) {
     )
   }
 })
+
+// we are doing background sync even without internet below
+// take a look at /public/src/js/feed.js
+self.addEventListener('sync', function (event) {
+  console.log('[Service Worker] Background syncing', event)
+
+  if (event.tag === 'sync-new-post') {
+    console.log('[Service worker] Syncing new post')
+    event.waitUntil(
+      readAllData('sync-posts')
+        .then(function (data) {
+          for (const dt of data) {
+            fetch('https://us-central1-pwaudemy-893b7.cloudfunctions.net/storePostData', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({
+                id: dt.id,
+                title: dt.title,
+                location: dt.location,
+                image: dt.image
+              })
+            })
+              .then(function (res) {
+                console.log('[Service Worker] Send data: ', res)
+                if (res.ok) {
+                  res.json()
+                    .then(function (resData) {
+                      console.log('[Service Worker] Removing item from indexedDB', resData)
+                      deleteItemFromData('sync-posts', resData.id)
+                    })
+                }
+              })
+              .catch(function (err) {
+                console.log(err)
+              })
+          }
+        })
+    )
+  }
+})
+
+// when using
+self.addEventListener('notificationclick', function (event) {
+  var notification = event.notification
+  var action = event.action
+
+  console.log(notification)
+
+  if (action === 'confirm') {
+    notification.close()
+  } else {
+    notification.close()
+    // below code is responsible for opening new window
+    event.waitUntil(
+      clients.matchAll()
+        .then(function (clis) {
+          var client = clis.find(function (c) {
+            return c.visibilityState === 'visible'
+          })
+
+          if (client !== undefined) {
+            client.navigate(notification.data.openUrl)
+          } else {
+            clients.openWindow(notification.data.openUrl)
+          }
+        })
+    )
+  }
+})
+
+// when using notification.close()
+self.addEventListener('notificationclose', function (event) {
+  console.log('[Service worekrer] Notification closen', event.notification)
+})
+
+// when reciving push message from subiscritpion :
+// take a look at /public/src/js/app.js and /functions/index.js
+self.addEventListener('push', function (event) {
+  console.log('[Service Worker] Push notification recived', event)
+
+  var data = { title: 'New!', content: 'Something new happened', openUrl: '/' }
+
+  if (event.data) {
+    data = JSON.parse(event.data.text())
+  }
+
+  var options = {
+    body: data.content,
+    icon: '/src/images/icons/app-icon-96x96.png',
+    badge: '/src/images/icons/app-icon-96x96.png',
+    data: { openUrl: data.openUrl }
+  }
+
+  event.waitUntil(
+    self.registration.showNotification(data.title, options)
+  )
+})
