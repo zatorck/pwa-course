@@ -1,3 +1,4 @@
+console.log('heelo from SW')
 // importScripts('/src/js/idb.js')
 // importScripts('/src/js/utility.js')
 //
