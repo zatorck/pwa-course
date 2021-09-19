@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "pl.jaty.pwa.twa",
+      "sha256_cert_fingerprints": [
+        "E3:61:F2:8D:8C:43:82:F1:4E:B0:DA:41:2D:39:AF:55:10:40:8C:D8:5B:D9:7A:07:2C:FF:17:77:EF:0D:72:30"
+      ]
+    }
+  }
+]
