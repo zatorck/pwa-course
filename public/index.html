@@ -114,20 +114,50 @@
                           for (item of skuDetails) {
                             // Format the price according to the user locale.
                             const localizedPrice = new Intl.NumberFormat(
-                              navigator.language,
-                              { style: 'currency', currency: item.price.currency }
+                                    navigator.language,
+                                    { style: 'currency', currency: item.price.currency }
                             ).format(item.price.value)
 
                             // Render the price to the UI.
                             console.log(item.itemId, item.title, localizedPrice, item.description)
                           }
                         })
-                        .catch((err) => {
-                          console.log(err)
-                        })
+                              .catch((err) => {
+                                console.log(err)
+                              })
                   }
                 </script>
-                <div id="shared-moments"></div>
+              <button id="pay" onclick="pay">Zapłać
+              </button>
+              <script>
+                async function pay () {
+                  const service = await window.getDigitalGoodsService('https://play.google.com/billing')
+                  if (service) {
+
+
+                    const paymentMethods = [{
+                      supportedMethods: "https://play.google.com/billing",
+                      data: {
+                        sku: 'abc123',
+                      }
+                    }];
+
+                    const paymentDetails = {
+                      total: {
+                        label: `Total`,
+                        amount: {currency: `USD`, value: `0`}
+                      }
+                    };
+
+                    const request = new PaymentRequest(paymentMethods, paymentDetails);
+
+                    const paymentResponse = await request.show();
+
+
+                  }
+                }
+              </script>
+              <div id="shared-moments"></div>
             </div>
             <div class="floating-button">
                 <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored"
