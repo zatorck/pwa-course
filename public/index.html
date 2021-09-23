@@ -127,10 +127,11 @@
                               })
                   }
                 </script>
-              <button id="pay" onclick="pay">Zapłać
+              <button id="pay" onclick="pay()">Zapłać
               </button>
               <script>
                 async function pay () {
+                  console.log('pay clicked')
                   const service = await window.getDigitalGoodsService('https://play.google.com/billing')
                   if (service) {
 
