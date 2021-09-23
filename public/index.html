@@ -101,25 +101,27 @@
           if ('getDigitalGoodsService' in window) {
             // Digital Goods API is supported!
             const service =
-                    await window.getDigitalGoodsService('https://play.google.com/billing');
-            if (service) {
+                     window.getDigitalGoodsService('https://play.google.com/billing') .then((service)=>{
+                       if (service) {
+alert('success')
+                         //
+                         // const skuDetails = await itemService.getDetails(['abc123']);
+                         // for (item of skuDetails) {
+                         //   // Format the price according to the user locale.
+                         //   const localizedPrice = new Intl.NumberFormat(
+                         //           navigator.language,
+                         //           {style: 'currency', currency: item.price.currency}
+                         //   ).format(item.price.value);
+                         //
+                         //   // Render the price to the UI.
+                         //   alert(
+                         //           item.itemId, item.title, localizedPrice, item.description);
+                         // }
 
 
-              const skuDetails = await itemService.getDetails(['abc123']);
-              for (item of skuDetails) {
-                // Format the price according to the user locale.
-                const localizedPrice = new Intl.NumberFormat(
-                        navigator.language,
-                        {style: 'currency', currency: item.price.currency}
-                ).format(item.price.value);
+                       }
+                     });
 
-                // Render the price to the UI.
-                alert(
-                        item.itemId, item.title, localizedPrice, item.description);
-              }
-
-
-            }
           }
         </script>
         <div id="shared-moments"></div>
