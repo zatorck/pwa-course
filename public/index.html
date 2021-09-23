@@ -121,6 +121,9 @@
                                 console.log(item.itemId, item.title, localizedPrice, item.description)
                               }
                             })
+                            .error((error) => {
+              console.log(error)
+                            })
 
           }
         </script>
