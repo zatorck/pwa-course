@@ -1,6 +1,10 @@
 [{
   "relation": ["delegate_permission/common.handle_all_urls"],
-  "target" : { "namespace": "android_app", "package_name": "pl.jaty.pwa.twa",
-    "sha256_cert_fingerprints": ["19:E8:F5:3C:C4:F3:FF:0F:81:E7:BE:55:F7:0C:F1:64:A5:64:1D:61:00:9D:18:30:08:5E:15:99:BD:0B:3C:18"] }
-}
-]
+  "target": {
+    "namespace": "android_app",
+    "package_name": "pl.jaty.jaty.jaty.pl",
+    "sha256_cert_fingerprints": [
+      "19:E8:F5:3C:C4:F3:FF:0F:81:E7:BE:55:F7:0C:F1:64:A5:64:1D:61:00:9D:18:30:08:5E:15:99:BD:0B:3C:18"
+    ]
+  }
+}]
