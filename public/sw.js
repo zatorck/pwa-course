@@ -2,8 +2,8 @@ importScripts('/src/js/idb.js')
 importScripts('/src/js/utility.js')
 
 const SERVICE_WORKER_VER = '0.007'
-const CACHE_STATIC = 'static-v7'
-const CACHE_DYNAMIC = 'dynamic-v4'
+const CACHE_STATIC = 'static-v8'
+const CACHE_DYNAMIC = 'dynamic-v5'
 const STATIC_FILES = [
   '/',
   'offline.html',
