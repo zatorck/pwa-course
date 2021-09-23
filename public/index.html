@@ -104,7 +104,7 @@
                     window.getDigitalGoodsService('https://play.google.com/billing')
                             .then((service) => {
                               if (service) {
-                                return itemService.getDetails(['abc123'])
+                                return service.getDetails(['abc123'])
                               }
                             })
                             .then(skuDetails => {
