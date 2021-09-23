@@ -105,6 +105,7 @@
                             .then((service) => {
                               console.log(service)
                               if (service) {
+                                console.log('im here')
                                 return service.getDetails(['abc123'])
                               }
                             })
