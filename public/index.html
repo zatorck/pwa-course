@@ -107,7 +107,7 @@
                                 return service.getDetails(['abc123'])
                               }
                             })
-                            .then(skuDetails => {
+                            .then((skuDetails) => {
                               for (item of skuDetails) {
                                 // Format the price according to the user locale.
                                 const localizedPrice = new Intl.NumberFormat(
