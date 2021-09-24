@@ -133,9 +133,9 @@
                 async function pay () {
                   const service = await window.getDigitalGoodsService('https://play.google.com/billing')
 
-                  const skuDetails = await service.getDetails(['abc123']);
-
-                  console.log(skuDetails)
+                  // const skuDetails = await service.getDetails(['abc123']);
+                  purchases = await service.listPurchases();
+                  console.log(purchases)
                   // for (item of skuDetails) {
                   //   // Format the price according to the user locale.
                   //   const localizedPrice = new Intl.NumberFormat(
