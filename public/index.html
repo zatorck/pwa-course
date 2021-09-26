@@ -136,7 +136,7 @@
                   const paymentMethods = [{
                     supportedMethods: "https://play.google.com/billing",
                     data: {
-                      sku: 'month_1',
+                      sku: 'abc123',
                     }
                   }];
 
@@ -168,7 +168,7 @@
 
                     const service = await window.getDigitalGoodsService('https://play.google.com/billing')
 
-                   const skuDetails = await service.getDetails(['month_1'])
+                   const skuDetails = await service.getDetails(['abc123'])
                     console.log(skuDetails)
                     //
                     // purchases = await service.listPurchases()
