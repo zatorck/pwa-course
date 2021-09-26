@@ -137,7 +137,7 @@
                     const service = await window.getDigitalGoodsService('https://play.google.com/billing')
 
                     // const skuDetails = await service.getDetails(['abc123']);
-                    console.log('service')
+                    console.log(service)
 
                     purchases = await service.listPurchases()
                   } else {
