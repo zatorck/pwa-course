@@ -131,12 +131,17 @@
               </button>
               <script>
                 async function pay () {
-                  const service = await window.getDigitalGoodsService('https://play.google.com/billing')
+                  if ('getDigitalGoodsService' in window) {
 
-                  // const skuDetails = await service.getDetails(['abc123']);
-                  console.log('service')
+                    const service = await window.getDigitalGoodsService('https://play.google.com/billing')
 
-                  purchases = await service.listPurchases();
+                    // const skuDetails = await service.getDetails(['abc123']);
+                    console.log('service')
+
+                    purchases = await service.listPurchases()
+                  } else {
+                    console.error('no getDigitalGoodsService support')
+                  }
                   // for (item of skuDetails) {
                   //   // Format the price according to the user locale.
                   //   const localizedPrice = new Intl.NumberFormat(
