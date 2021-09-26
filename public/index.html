@@ -168,16 +168,16 @@
 
                     const service = await window.getDigitalGoodsService('https://play.google.com/billing')
 
+                    // // const skuDetails = await service.getDetails(['abc123']);
+                    // console.log(service)
+                    //
+                    // purchases = await service.listPurchases()
+                    //
+                    // console.log(purchases)
+                    //
                     // const skuDetails = await service.getDetails(['abc123']);
-                    console.log(service)
-
-                    purchases = await service.listPurchases()
-
-                    console.log(purchases)
-
-                    const skuDetails = await service.getDetails(['abc123', 'gem']);
-
-                    console.log(skuDetails)
+                    //
+                    // console.log(skuDetails)
 
                     makePurchase(service, 'abc123')
 
