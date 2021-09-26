@@ -168,7 +168,7 @@
 
                     const service = await window.getDigitalGoodsService('https://play.google.com/billing')
 
-                    // // const skuDetails = await service.getDetails(['abc123']);
+                   const skuDetails = await service.getDetails(['abc123'])
                     // console.log(service)
                     //
                     // purchases = await service.listPurchases()
@@ -179,7 +179,7 @@
                     //
                     // console.log(skuDetails)
 
-                    makePurchase(service, 'abc123')
+                    makePurchase(service, skuDetails[0])
 
 
 
