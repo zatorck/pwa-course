@@ -99,34 +99,34 @@
                 <div style="background: red" id="digital-goods-service">
                     getDigitalGoodsService
                 </div>
-                <script>
-                  if ('getDigitalGoodsService' in window) {
-                    // Digital Goods API is supported!
-                      window.getDigitalGoodsService('https://play.google.com/billing')
-                        .then((service) => {
-                          console.log(service)
-                          if (service) {
-                            console.log('im here')
-                            return service.getDetails(['abc123'])
-                          }
-                        })
-                        .then((skuDetails) => {
-                          for (item of skuDetails) {
-                            // Format the price according to the user locale.
-                            const localizedPrice = new Intl.NumberFormat(
-                                    navigator.language,
-                                    { style: 'currency', currency: item.price.currency }
-                            ).format(item.price.value)
+<!--                <script>-->
+<!--                  if ('getDigitalGoodsService' in window) {-->
+<!--                    // Digital Goods API is supported!-->
+<!--                      window.getDigitalGoodsService('https://play.google.com/billing')-->
+<!--                        .then((service) => {-->
+<!--                          console.log(service)-->
+<!--                          if (service) {-->
+<!--                            console.log('im here')-->
+<!--                            return service.getDetails(['abc123'])-->
+<!--                          }-->
+<!--                        })-->
+<!--                        .then((skuDetails) => {-->
+<!--                          for (item of skuDetails) {-->
+<!--                            // Format the price according to the user locale.-->
+<!--                            const localizedPrice = new Intl.NumberFormat(-->
+<!--                                    navigator.language,-->
+<!--                                    { style: 'currency', currency: item.price.currency }-->
+<!--                            ).format(item.price.value)-->
 
-                            // Render the price to the UI.
-                            console.log(item.itemId, item.title, localizedPrice, item.description)
-                          }
-                        })
-                              .catch((err) => {
-                                console.log(err)
-                              })
-                  }
-                </script>
+<!--                            // Render the price to the UI.-->
+<!--                            console.log(item.itemId, item.title, localizedPrice, item.description)-->
+<!--                          }-->
+<!--                        })-->
+<!--                              .catch((err) => {-->
+<!--                                console.log(err)-->
+<!--                              })-->
+<!--                  }-->
+<!--                </script>-->
               <button id="pay" onclick="pay()">Zapłać
               </button>
               <script>
@@ -134,10 +134,9 @@
                   const service = await window.getDigitalGoodsService('https://play.google.com/billing')
 
                   // const skuDetails = await service.getDetails(['abc123']);
-                  console.log('purchases')
+                  console.log('service')
 
                   purchases = await service.listPurchases();
-                  console.log('purchases',purchases)
                   // for (item of skuDetails) {
                   //   // Format the price according to the user locale.
                   //   const localizedPrice = new Intl.NumberFormat(
