@@ -169,7 +169,9 @@
                     makePurchase(service, 'abc123')
 
                     try {
-                      const paymentResponse = await request.show();
+                      const paymentResponse = await request.show()
+                    } catch (e) {
+                      console.log(e)
                     }
 
 
