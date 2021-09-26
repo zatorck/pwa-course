@@ -132,6 +132,7 @@
               <script>
                 async function pay () {
                   if ('getDigitalGoodsService' in window) {
+                    console.log('getDigitalGoodsService support')
 
                     const service = await window.getDigitalGoodsService('https://play.google.com/billing')
 
