@@ -130,6 +130,25 @@
               <button id="pay" onclick="pay()">Zapłać
               </button>
               <script>
+
+                async function makePurchase(service, sku) {
+                  // Define the preferred payment method and item ID
+                  const paymentMethods = [{
+                    supportedMethods: "https://play.google.com/billing",
+                    data: {
+                      sku: sku,
+                    }
+                  }];
+
+                  const paymentDetails = {
+                    total: {
+                      label: `Total`,
+                      amount: {currency: `USD`, value: `0`}
+                    }
+                  };
+
+                  const request = new PaymentRequest(paymentMethods, paymentDetails);
+                }
                 async function pay () {
                   if ('getDigitalGoodsService' in window) {
                     console.log('getDigitalGoodsService support')
@@ -146,6 +165,15 @@
                     const skuDetails = await service.getDetails(['abc123', 'gem']);
 
                     console.log(skuDetails)
+
+                    makePurchase(service, 'abc123')
+
+                    try {
+                      const paymentResponse = await request.show();
+                    }
+
+
+
 
 
                   } else {
