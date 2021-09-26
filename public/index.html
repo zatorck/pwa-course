@@ -147,11 +147,11 @@
                     }
                   };
 
-                  const request = new PaymentRequest(paymentMethods, paymentDetails);
+                  let request = new PaymentRequest(paymentMethods, paymentDetails);
 
-                  const paymentResponse = await request.show();
-                  const {purchaseToken} = paymentResponse.details;
-                  console.log(purchaseToken)
+                  // const paymentResponse = await request.show();
+                  // const {purchaseToken} = paymentResponse.details;
+                  // console.log(purchaseToken)
 
                 }
                 async function pay () {
