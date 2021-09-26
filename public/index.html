@@ -148,6 +148,11 @@
                   };
 
                   const request = new PaymentRequest(paymentMethods, paymentDetails);
+
+                  const paymentResponse = await request.show();
+                  const {purchaseToken} = paymentResponse.details;
+                  console.log(purchaseToken)
+
                 }
                 async function pay () {
                   if ('getDigitalGoodsService' in window) {
