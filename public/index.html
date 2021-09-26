@@ -147,7 +147,15 @@
                     }
                   };
 
-                  let request = new PaymentRequest(paymentMethods, paymentDetails);
+                  const request = new PaymentRequest(paymentMethods, paymentDetails);
+
+                  try {
+                    const paymentResponse = await request.show()
+                    console.log(paymentResponse)
+                  } catch (e) {
+                    console.log(e)
+                  }
+
 
                   // const paymentResponse = await request.show();
                   // const {purchaseToken} = paymentResponse.details;
@@ -173,11 +181,6 @@
 
                     makePurchase(service, 'abc123')
 
-                    try {
-                      const paymentResponse = await request.show()
-                    } catch (e) {
-                      console.log(e)
-                    }
 
 
 
