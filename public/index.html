@@ -151,11 +151,24 @@
 
                   try {
                     const paymentResponse = await request.show()
-                    console.log(paymentResponse)
-                  } catch (e) {
-                    console.log(e)
-                  }
+                    const { purchaseToken } = paymentResponse.details
 
+                    // Call backend to validate the purchase.
+                    // Acknowledge using the Digital Goods API. Use ‘onetime' for
+                    // items that can only be purchased once and ‘repeatable for
+                    // items that can be purchased multiple times.
+                    await service.acknowledge(purchaseToken, 'repeatable')
+
+                    // Optional: tell the PaymentRequest API the validation was
+                    // successful. The user-agent may show a "payment successful"
+                    // message to the user.
+                    const paymentComplete =
+                      await paymentResponse.complete('success')
+                  } catch (e) {
+                    console.log('e')
+                    // The purchase failed, and we can handle the failure here.
+                    // AbortError usually means a user cancellation
+                  }
 
                   // const paymentResponse = await request.show();
                   // const {purchaseToken} = paymentResponse.details;
